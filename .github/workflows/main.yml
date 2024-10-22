@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - main
+      - developing
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'  # Adjust the version as needed
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests with coverage
+      run: |
+        pytest --cov=src --cov-report=xml --cov-report=html tests/
+
+    - name: Generate SonarQube coverage report
+      run: |
+        coverage xml -o coverage.xml  # Generates the coverage report in XML format
+
+    - name: SonarQube Scanner
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        sonar-scanner \
+        -Dsonar.projectKey=your_project_key \
+        -Dsonar.sources=. \
+        -Dsonar.exclusions=test_main.py \  # Exclude test files from analysis
+        -Dsonar.host.url=http://localhost:9000 \
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+        -Dsonar.python.coverage.reportPaths=coverage.xml
