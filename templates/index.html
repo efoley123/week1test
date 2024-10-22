@@ -13,16 +13,19 @@
         <div class = "center">
         <header>MiniProject</header>
 
-        <form>
-            <!--here is where there will be a request idk-->
-            <!--connection to OpenAI-->
+        <p>We will be sending a query to OpenAI
+            <br>
+        </p>
+    
+        <form action="/sendCode" method="post">
+            <button type="submit">Send my Code to see the Coverage</button>
         </form>
     </div>
 
     <div class = "result">
     {% if result %}
     <div>
-        <h3>Ollama Response:</h3>
+        <h3>OpenAI Response:</h3>
         <p>{{ result }}</p>
     </div>
     {% endif %}
