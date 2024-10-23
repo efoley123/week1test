@@ -31,7 +31,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        sonar-scanner \
+        sonar-scanner-6.2.1.4610-macosx-aarch64/bin/sonar-scanner \
         -Dsonar.projectKey=your_project_key \
         -Dsonar.sources=. \
         -Dsonar.exclusions=test_main.py \  # Exclude test files from analysis
