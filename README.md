@@ -11,9 +11,10 @@ You need to install sonarQube thing from the video in the beginning. Also need D
 To run the main program:
 
 
-I followed this video mainly to get SonarQube active (https://youtu.be/3zs_S-xvH-M)
+I followed this video mainly to get SonarQube active (https://youtu.be/6vdRvz_LnbQ)
 First I made sure docker was running then ran the commands, `docker pull sonarqube`
 and `docker run -d --name sonarqube-db -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonar -e POSTGRES_DB=sonarqube postgres:alpine`
+Also the command `docker run -d --name sonarqube -p 9000:9000 --link sonarqube-db:db -e SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonarqube -e SONAR_JDBC_USERNAME=sonar -e SONAR_JDBC_PASSWORD=sonar sonarqube`
 
 Then I ran `pytest --cov=. --cov-report=xml` to get an xml report of the python test cases.
 *I am not sure why I had to do this. I thought SonarQube would be able to do it for me.*
