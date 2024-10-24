@@ -27,14 +27,22 @@ jobs:
       run: |
         pytest --cov=. --cov-report=xml
 
-    - name: SonarQube Scanner
+    - name: Download Sonar Scanner
+      run: |
+        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux.zip
+        unzip sonar-scanner-cli-6.2.1.4610-linux.zip
+        cd sonar-scanner-6.2.1.4610-linux/bin
+
+
+    - name: SonarQube practice
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       run: |
-        sonar-scanner-6.2.1.4610-macosx-aarch64/bin/sonar-scanner \
-        -Dsonar.projectKey=your_project_key \
-        -Dsonar.sources=. \
-        -Dsonar.exclusions=test_main.py \  # Exclude test files from analysis
-        -Dsonar.host.url=http://localhost:9000 \
-        -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-        -Dsonar.python.coverage.reportPaths=coverage.xml
+        ./sonar-scanner \
+          -Dsonar.projectKey=your_project_key \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.python.coverage.reportPaths=coverage.xml \
+          -Dsonar.exclusions=test_main.py \  # Exclude test files from analysis
