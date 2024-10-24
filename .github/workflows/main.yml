@@ -27,11 +27,15 @@ jobs:
       run: |
         pytest --cov=. --cov-report=xml
 
-    - name: Download Sonar Scanner
-      run: |
-        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux.zip
-        unzip sonar-scanner-cli-6.2.1.4610-linux.zip
-        cd sonar-scanner-6.2.1.4610-linux/bin
+
+    - name: SonarQube Scan
+      uses: sonarsource/sonarcloud-github-action@v1.0.0
+      with:
+        sonar-project-key: week1test
+        sonar-project-name: week1test
+        sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
+        sonar-login: ${{ secrets.SONAR_TOKEN }
+
 
 
     - name: SonarQube practice
