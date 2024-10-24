@@ -29,7 +29,7 @@ jobs:
 
 
     - name: SonarQube Scan
-      uses: sonarsource/sonarcloud-github-action@v1.0.0
+    - uses: sonarsource/sonarqube-scan-action@v3
       with:
         sonar-project-key: week1test
         sonar-project-name: week1test
