@@ -31,10 +31,12 @@ jobs:
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@v3
       with:
-        sonar-project-key: week1test
-        sonar-project-name: week1test
-        sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-        sonar-login: ${{ secrets.SONAR_TOKEN }}
+        projectBaseDir: .
+        args: >
+          -Dsonar.projectKey=week1test
+          -Dsonar.projectName=week1test
+          -Dsonar.host.url=http://localhost:9000
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} # or the appropriate token
 
 
 
