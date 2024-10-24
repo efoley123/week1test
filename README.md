@@ -30,7 +30,7 @@ Next I ran `/Users/eleanorfoley/Documents/WPI/MQP/sonar-scanner-6.2.1.4610-macos
 
   This was the last step
 
-
+Afterwards can go in docker and run them
 
 
 
